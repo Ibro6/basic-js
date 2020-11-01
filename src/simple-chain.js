@@ -1,33 +1,35 @@
 const chainMaker = {
-  array: [],
-
+  chainArray: [],
   getLength() {
-    return this.array.length;
+    return this.chainArray.length;
   },
   addLink(value) {
-    this.array.push(`( ${value} )`);
+    this.chainArray.push("( " + value + " )");
     return this;
   },
+
   removeLink(position) {
-    if (typeof position !== "number" || !Number.isInteger(position)) {
-      this.array = [];
-      throw new Error("Error");
+    if(Number.isInteger(position)&&position>0&&position<=this.chainArray.length)
+    {
+      this.chainArray.splice(position-1, 1);
+      return this;
     }
-    if (position < 1 || position > this.array.length) {
-      this.array = [];
-      throw new Error("Error");
+    else 
+    {
+      this.chainArray = [];
+      throw Error;
     }
-    this.array.splice(position - 1, 1);
-    return this;
   },
+  
   reverseChain() {
-    this.array.reverse();
+    this.chainArray.reverse();
     return this;
   },
+
   finishChain() {
-    let chainArray = this.array.slice();
-    this.array = [];
-    return chainArray.join("~~");
+    let result = this.chainArray.join("~~");
+    this.chainArray = [];
+    return result;
   }
 };
 
